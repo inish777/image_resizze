@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>{% block title %}Index{% endblock %}</title>
+</head>
+<body>
+<div class="general">
+    {% block header %}
+        <div class="header">
+            <div class="title">
+                <a class="upload_page_ref" href="{% url 'main_page' %}">Main Page</a>
+            </div>
+            <div class="upload_page">
+                <a class="upload_page_ref" href="{% url 'upload' %}">Upload new image</a>
+            </div>
+        </div>
+    {% endblock %}
+    {% block content %}
+        <div class="content">
+            <div class="content_images">
+                {% for image in images %}
+                    <div class="content_image">
+                        <img class="image" src="{{ image.image_field.url }}">
+                        <a class="image_page_ref"
+                           href="{% url 'show_image' image.key %}">{{ image.key }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
+</div>
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script>
+    var upload_form = $("#upload_form");
+    var image_from_fs = $('#image_from_fs');
+    var image_url = $("#image_url");
+    var upload_by_url = $("#upload_by_url");
+    var upload_from_fs = $("#upload_from_fs");
+    upload_form.change(function () {
+        if (image_from_fs.val() !== "") {
+            upload_by_url.removeAttr("style").hide();
+            image_url.removeAttr('required');
+        } else if (image_url.val() !== "") {
+            upload_from_fs.removeAttr("style").hide();
+            image_from_fs.removeAttr('required');
+        } else {
+            upload_by_url.show();
+            image_url.prop('required', true);
+            upload_from_fs.show();
+            image_from_fs.prop('required', true);
+        }
+    });
+</script>
+</body>
+</html>

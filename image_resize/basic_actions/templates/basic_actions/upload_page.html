@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block title %} Upload Page {% endblock %}
+{% block content %}
+    {% if warning %}
+        <div class="warning-text">
+            {{ warning }}
+        </div>
+    {% endif %}
+    <div class="form">
+        <form id="upload_form" action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p id="upload_from_fs">
+                <label for="upload_image">Upload your file:</label>
+                <input type="file" id="image_from_fs" name="upload_image" accept="image/*"
+                       required>
+            </p>
+            <p id="upload_by_url">
+                <label for="image_url">Url your image</label>
+                <input type="url" id="image_url" name="image_url" required>
+            </p>
+            <input type="submit" value="upload" id="upload_submit">
+        </form>
+    </div>
+    <span id="not_valid" class="not_valid text"></span>
+{% endblock %}

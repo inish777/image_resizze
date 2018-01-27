@@ -1,0 +1,12 @@
+certifi==2018.1.18
+chardet==3.0.4
+Django==1.11
+django-appconf==1.0.2
+django-imagefit==0.5
+django-redis==4.8.0
+idna==2.6
+Pillow==5.0.0
+pytz==2017.3
+redis==2.10.6
+requests==2.18.4
+urllib3==1.22

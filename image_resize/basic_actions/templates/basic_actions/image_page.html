@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% load imagefit %}
+{% block title %} Image Page {% endblock %}
+{% block content %}
+    <div class="image_page_content">
+        {% if warning %}
+            <p class="warning-text">
+                {{ warning }}
+            </p>
+        {% endif %}
+        {% if right_size %}
+            <img src="{{ image.image_field.url|resize:right_size }}">
+        {% else %}
+            <div class="show_image">
+                <img src="{{ image.image_field.url }}">
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="form">
+                <form action="{% url 'show_image' image.key %}" method="get">
+                    <p>
+                        <label for="width">Width</label><input pattern="[0-9]{2,4}" type="text"
+                                                               id="width" name="width" required>
+                    </p>
+                    <p>
+                        <label for="height">Height</label><input pattern="[0-9]{2,4}" type="text"
+                                                                 id="height" name="height" required>
+                    </p>
+                    <p><input type="hidden" value="1024x768" name="size"></p>
+                    <p><input type="submit" value="query"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
